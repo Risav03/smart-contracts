@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "./ERC20.sol";
-import "./ERC20Burnable.sol";
-import "./ERC20Pausable.sol";
-import "./Ownable.sol";
-import "./ERC20Permit.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
-contract Simply is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Permit {
+contract Simple is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Permit {
     constructor()
-        ERC20("Simply", "SIMPLY")
-        ERC20Permit("Simply")
+        ERC20("Simple", "SIMPLE")
+        ERC20Permit("Simple")
     {}
 
     mapping(address => bool) public controllers;
