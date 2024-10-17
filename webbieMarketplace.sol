@@ -16,8 +16,9 @@ contract WebbieMarketplace is Ownable{
 
 
     constructor(
-        nftMaker = IWebbieNFTMaker()
-    ) Ownable(msg.sender) {}
+    ) Ownable(msg.sender) {
+        nftMaker = IWebbieNFTMaker();
+    }
 
 
 

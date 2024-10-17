@@ -47,7 +47,7 @@ contract WebbieNFTMaker is Ownable, ERC721, ERC721URIStorage{
     }
 
     function pause(uint256 tokenId) public {
-        require(msg.sender == tokenIdPublisher[tokenId] || msg.sender == owner())
+        require(msg.sender == tokenIdPublisher[tokenId] || msg.sender == owner());
 
     }
 
