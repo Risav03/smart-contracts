@@ -21,6 +21,21 @@ contract WebbieNFTMaker is Ownable, ERC721, ERC721URIStorage{
     string public baseURI;
 
     uint256 public tokenId;
+    uint256 public ownerFee;
+
+    address public minterContract;
+
+    function setMinterContract(address minter) public onlyOwner{
+        minterContract = minter;
+    }
+
+    function setOwnerFee(uint256 percentage) public onlyOwner{
+        ownerFee = percentage;
+    }
+
+    function returnFee() public view returns(uint256){
+        return ownerFee;
+    }
 
     function createNFT(uint256 price) public {
         tokenIdPublisher[tokenId] = msg.sender;
@@ -29,20 +44,17 @@ contract WebbieNFTMaker is Ownable, ERC721, ERC721URIStorage{
         tokenId++;
     }
 
-    function mint(uint256 tokenId) public payable {
-        require(tokenIdPublisher[tokenId] != address(0), "Item does not exist");
-        require(msg.value >= tokenIdPrice[tokenId], "Sending value less than price of item");
-        require(pauseMint[tokenId] == false, "Mint has been paused for this item");
-
-        _mint(msg.sender, tokenId, "");
+    function safeMint(address to, uint256 _tokenId) external {
+        require(msg.sender == minterContract, "Only minter contract can mint");
+        _safeMint(to, _tokenId);
     }
 
-    function returnPrice(tokenId) public pure returns(uint256){
+    function returnPrice(tokenId) public view returns(uint256){
         return tokenIdPrice[tokenId];
     }
 
-    function modifyPrice(uint256 newPrice) public{
-        require(tokenIdPublisher[tokenId] = msg.sender, "You're not the owner of this asset.");
+    function modifyPrice(uint256 tokenId, uint256 newPrice) public{
+        require(minterContract = msg.sender, "This method can be called by the minter contract.");
         tokenIdPrice[tokenId] = newPrice;
     }
 
